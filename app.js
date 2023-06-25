@@ -32,6 +32,7 @@ async function connect() {
       maxlength: 50,
       trim: true,
     },
+    
     body: {
       type: String,
       required: [true, "required"],
