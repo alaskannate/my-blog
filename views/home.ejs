@@ -1,0 +1,32 @@
+<%- include ('partials/header') -%>
+
+<h1> Home </h1>
+
+<h3>Hi, My name is Nathaniel,</h3>
+
+<p>This is my personal blog where I track my progress as a software developer. <br>
+     I will be sharing not only my projects and their progression but also the skill paths I am pursuing as I refine and focus on building what I truly enjoy. <br>
+    If you are interested in collaborating or working with me, please feel free to reach out via the contact page. </p>
+
+
+<% newMessage.forEach(function(message){ %>
+<div class="post">
+    <hr>
+    <h3><%= today %> </h3>
+    <h4><%= message.title %> </h4>
+    <p><%= message.message.substring(0,100) + " ..." %>
+    <a href="post/<%= message.title %>" +>Read More</a>
+    </p>
+
+</div>
+<% }) %>
+
+<!-- <script>
+    const paragraph = document.getElementById("paragraph");
+  
+    paragraph.addEventListener("click", () => {
+      paragraph.classList.toggle("expanded");
+    });
+  </script> -->
+
+<%- include ('partials/footer') -%>
