@@ -113,7 +113,7 @@ app.get("/", (req, res) => {
     })
     .catch((error) => {
       console.error('Error Finding items:', error);
-      res.status(500).send('Error retrieving items');
+      res.status(500).send(error);
     });
 });
 
