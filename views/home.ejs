@@ -1,6 +1,9 @@
 <%- include ('partials/header') -%>
 
+<div class="wrapper">
 <h1> Home </h1>
+
+<hr>
 
 <h3>Hi, My name is Nathaniel,</h3>
 
@@ -12,21 +15,15 @@
 <% newPost.forEach(function(post){ %>
 <div class="post">
     <hr>
-    <h3><%= day %> </h3>
+    <h3><%= post.date %> </h3>
     <h4><%= post.title %> </h4>
-    <p><%= post.post.substring(0,100) + " ..." %>
-    <a href="post/<%= message.title %>">Read More</a>
+    <p><%= post.body.substring(0,100) + " ..." %>
+    <a href="post/<%= post._id %>">Read More</a>
     </p>
 
 </div>
 <% }) %>
+</div>
 
-<!-- <script>
-    const paragraph = document.getElementById("paragraph");
-  
-    paragraph.addEventListener("click", () => {
-      paragraph.classList.toggle("expanded");
-    });
-  </script> -->
 
 <%- include ('partials/footer') -%>
