@@ -176,9 +176,6 @@ app.get('/post/:postID', (req, res) => {
       });
     })
     .catch((error) => {
-      console.log(requestedPost)
-      console.log(requestedPost)
-      console.log(requestedPost)
       console.error('Error Finding items:', error);
       res.status(500).send('Error retrieving items');
     });
