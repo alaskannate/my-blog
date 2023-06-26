@@ -9,13 +9,13 @@
     If you are interested in collaborating or working with me, please feel free to reach out via the contact page. </p>
 
 
-<% newMessage.forEach(function(message){ %>
+<% newPost.forEach(function(post){ %>
 <div class="post">
     <hr>
-    <h3><%= today %> </h3>
-    <h4><%= message.title %> </h4>
-    <p><%= message.message.substring(0,100) + " ..." %>
-    <a href="post/<%= message.title %>" +>Read More</a>
+    <h3><%= day %> </h3>
+    <h4><%= post.title %> </h4>
+    <p><%= post.post.substring(0,100) + " ..." %>
+    <a href="post/<%= message.title %>">Read More</a>
     </p>
 
 </div>

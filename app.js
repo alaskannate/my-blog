@@ -7,11 +7,27 @@ const _ = require("lodash");
 const date = require(__dirname + "/date.js");
 const mongoose = require("mongoose");
 
+const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
+const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
+const todaysDate = date.getDate()
+
+const app = express();
+
+const newMessage = [];
+
+app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static("public"));
+
+
 
 // MAIN DATABASE SECTION.
 
 
-//Connecting to the database. 
+//Connecting to our database...
 const uri = "mongodb+srv://nateewing93:Travelin.20@cluster0.cxhnnxh.mongodb.net/?retryWrites=true&w=majority";
 
 async function connect() {
@@ -21,30 +37,30 @@ async function connect() {
   } catch (error) {
     console.log(error);
   }
+}
+connect();
 
-  //Defined blog-post schema.
+  //Defining schema for the datebase collection "posts"...
   const postSchema = new mongoose.Schema({
     date: String,
     title: {
       type: String,
-      required: [true, "required"],
-      minlength: 1,
-      maxlength: 50,
+      required: [true, "a title is required"],
+      minlength: [1, "This title is too short"],
+      maxlength: [75, "This title is too long"],
       trim: true,
     },
-    
     body: {
       type: String,
-      required: [true, "required"],
-      minlength: [25, "This is too short"],
-      maxlength: [1000, "This is too long"],
+      required: [true, "a text body is required"],
+      minlength: [25, "This text body is too short"],
+      maxlength: [1000, "This text body is too long"],
       trim: true,
     }
   });
   const Post = mongoose.model('Post', postSchema);
 
-
-  //Defined user schema
+  //Defining schema for the database collection "user"...
   const userSchema = new mongoose.Schema({
     name: {
       type: String,
@@ -59,29 +75,6 @@ async function connect() {
     authoredPosts: postSchema
   });
   const User = mongoose.model('User', userSchema)
-
-
-  //tests...
-
-
-  const newPost = new Post({
-    date: "tomorrow",
-    title: "realationship test #1",
-    body: "not a very short peice of text",
-
-  });
-
-  newPost.save();
-
-  const user = new User({
-    name: "Shea",
-    email: "Shea.ewing93@gmail.com",
-    authoredPosts: newPost
-  });
-
-  user.save();
-
-
 
 
 
@@ -104,39 +97,39 @@ async function connect() {
 //   })
 //   .catch((err) => console.error('Error querying collection:', err))
 //   .finally(() => mongoose.disconnect());
-}
 
-connect();
 
 
 
 
 //MAIN APPLICATION LOGIC. 
 
-const aboutContent = "Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.";
-const contactContent = "Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis aliquam malesuada bibendum arcu vitae. Consequat interdum varius sit amet mattis. Iaculis nunc sed augue lacus. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pulvinar elementum integer enim neque. Ultrices gravida dictum fusce ut placerat orci nulla. Mauris in aliquam sem fringilla ut morbi tincidunt. Tortor posuere ac ut consequat semper viverra nam libero.";
-const today = date.getDate()
 
-const app = express();
+app.get("/", (req, res) => {
 
-const newMessage = [];
-
-app.set('view engine', 'ejs');
-
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(express.static("public"));
-
-
-// gets home content 
-app.get('/', (req, res) => {
-  res.render('home', {
-    newMessage: newMessage,
-    today: today,
-
-  });
+  Post.find({})
+    .then((foundPosts) => {
+      res.render('home', {
+        newPost: foundPosts,
+        day: todaysDate
+      });
+    })
+    .catch((error) => {
+      console.error('Error Finding items:', error);
+      res.status(500).send('Error retrieving items');
+    });
 });
+
+
+
+// // gets home content 
+// app.get('/', (req, res) => {
+//   res.render('home', {
+//     newMessage: newMessage,
+//     today: todaysDate,
+
+//   });
+// });
 
 // gets about content
 app.get('/about', (req, res) => {
@@ -157,16 +150,38 @@ app.get('/compose', (req, res) => {
   res.render('compose', );
 });
 
-//handles what happens when a user composes a new post. 
-app.post('/compose', (req, res) => {
+app.post("/compose", async (req, res) => {
 
-  const post = {
-    title: req.body.title,
-    message: req.body.message
+  const postDate = todaysDate;
+  const postTitle = req.body.postTitle;
+  const postBody =req.body.postBody;
+
+  //Creating a new item instance...
+  const newPost = new Post({
+    date: postDate,
+    title: postTitle,
+    body: postBody
+  });
+  try {
+    //... and then saving item to mongoDB collection.
+    await newPost.save();
+    res.redirect("/");
+  } catch (err) {
+    console.log(err)
+    res.status(500).send("Error saving items to database.");
   }
-  newMessage.unshift(post);
-  res.redirect('/')
 });
+
+//handles what happens when a user composes a new post. 
+// app.post('/compose', (req, res) => {
+
+//   const post = {
+//     title: req.body.title,
+//     message: req.body.message
+//   }
+//   newMessage.unshift(post);
+//   res.redirect('/')
+// });
 
 app.get('/post/:postID', (req, res) => {
   const requestedPost = _.kebabCase(req.params.postID);
