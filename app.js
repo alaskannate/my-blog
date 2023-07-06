@@ -125,6 +125,10 @@ app.get('/about', (req, res) => {
   });
 });
 
+app.get('/flashcards', (req, res) => {
+  res.render('flashcards');
+})
+
 // gets contact content 
 app.get('/contact', (req, res) => {
   res.render('contact', {
