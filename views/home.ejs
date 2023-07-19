@@ -1,28 +1,40 @@
 <%- include ('partials/header') -%>
 
 <div class="wrapper">
-<h1> Home </h1>
+    <div class="container-greeting">
+        <div class="greeting">
+            <h1>Hi, my name is Nathaniel Ewing</h1>
+        </div>
+        <div>
+            <h3>I'm a Software/web Developer</h3>
+        </div>
 
-<hr>
+        <div class="in-summery">
+            <p>In this personal blog I track and showcase my progress as software developer.
+                As i build projects I will share both my insights and learnings,
+                But also challanges and tribulations.
+                <p />
+        </div>
 
-<h3>Hi, My name is Nathaniel,</h3>
 
-<p>This is my personal blog where I track my progress as a software developer. <br>
-     I will be sharing not only my projects and their progression but also the skill paths I am pursuing as I refine and focus on building what I truly enjoy. <br>
-    If you are interested in collaborating or working with me, please feel free to reach out via the contact page. </p>
+    </div>
 
 
-<% newPost.forEach(function(post){ %>
-<div class="post">
-    <hr>
-    <h3><%= post.date %> </h3>
-    <h4><%= post.title %> </h4>
-    <p><%= post.body.substring(0,100) + " ..." %>
-    <a href="post/<%= post._id %>">Read More</a>
-    </p>
 
-</div>
-<% }) %>
+    <div class="container-posts">
+        <% newPost.forEach(function(post){ %>
+        <div class="post">
+            <hr>
+            <h3><%= post.date %> </h3>
+            <h4><%= post.title %> </h4>
+            <p><%= post.body.substring(0,100) + " ..." %>
+                <a href="post/<%= post._id %>">Read More</a>
+            </p>
+
+        </div>
+        <% }) %>
+    </div>
+
 </div>
 
 

@@ -1,78 +1,64 @@
-
-
 body {
-    margin: 0;
-    padding: 0 0 5rem 0;
-    height: 100%;
-  }
+  margin: 0;
+  padding: 0 0 5rem 0;
+  height: 100%;
+}
 
-  .wrapper {
-    min-height: 100vh; /* Set the minimum height to the full viewport height */
-    padding-bottom: 50px; /* Adjust the padding as needed */
-  }
-  
-  
+
 .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
-.navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
+.container-greeting {
+  text-align: center;
+  padding:100px 400px;
 }
 
-.navbar-nav li a:hover {
-    color: #245699 !important;
-}
 
 footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    text-align: center;
-    width: 100%;
-    height: 65px;
-    background-color: #245699;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  height: 65px;
+  background-color: #245699;
 }
 
 footer p {
-    margin-top: 25px;
-    font-size: 12px;
-    color: #fff;
+  margin-top: 25px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.in-summery { 
+  padding: 50px 100px 100px 100px;
 }
 
 
 
-/* included login page bootstrap styles  */
+.navbar {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
+}
 
-.form-signin {
-    max-width: 330px;
-    padding: 1rem;
-  }
-  
-  .form-signin .form-floating:focus-within {
-    z-index: 2;
-  }
-  
-  .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+.navbar-nav li a:hover {
+  color: #245699 !important;
+}
 
+.post {
+  text-align: center;
+}
 
-
-
-
+.wrapper {
+  min-height: 100vh;
+  /* Set the minimum height to the full viewport height */
+  padding-bottom: 50px;
+  /* Adjust the padding as needed */
+}

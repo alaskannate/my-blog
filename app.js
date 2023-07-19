@@ -10,6 +10,8 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+
+
 const app = express();
 
 app.use(express.static("public"));
@@ -131,14 +133,12 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/flashcards", (req, res) => {
-  res.render('flashcards');
+  res.render('flashcards',);
 })
 
 // gets contact content 
 app.get("/contact", (req, res) => {
-  res.render("contact", {
-    contactContent: contactContent
-  });
+  res.render("contact", )
 });
 
 //gets compose page where user can create new content. 
@@ -146,6 +146,10 @@ app.get("/compose", (req, res) => {
   res.render("compose", );
 });
 
+app.get("/delete", (req,res) => {
+
+  res.render("delete",)
+});
 
 
 app.get('/post/:postID', (req, res) => {
