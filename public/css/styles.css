@@ -4,15 +4,22 @@ body {
   height: 100%;
 }
 
-
+.container {
+  text-align: center;
+}
 .container-fluid {
   padding-top: 70px;
   padding-bottom: 70px;
 }
 
-.container-greeting {
-  text-align: center;
-  padding:100px 400px;
+.container-intro {
+  display: flex;
+  flex-direction: column;
+  padding:100px;
+}
+
+.container-body {
+padding-bottom: 40px;
 }
 
 
@@ -33,7 +40,7 @@ footer p {
 }
 
 .in-summery { 
-  padding: 50px 100px 100px 100px;
+  padding: 50px 0;
 }
 
 
@@ -48,9 +55,37 @@ footer p {
   letter-spacing: 5px;
 }
 
+.navbar-brand {
+  padding-left: 30px;
+}
+
+.navbar-nav .nav-link {
+  margin-left: 30px;
+}
+
 .navbar-nav li a:hover {
   color: #245699 !important;
 }
+
+.navbar-right {
+  margin-left: auto;
+}
+.navbar-right li {
+  padding-right: 15px;
+}
+
+.navbar-toggler {
+  margin-right: 30px;
+}
+
+
+
+
+
+
+
+
+
 
 .post {
   text-align: center;

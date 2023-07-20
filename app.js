@@ -33,7 +33,7 @@ app.use(passport.session());
 // MAIN DATABASE SECTION
 
 //Connecting to our database...
-const uri = "mongodb+srv://nateewing93:Travelin.20@cluster0.cxhnnxh.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_DB_URI
 
 async function connect() {
   try {
@@ -45,7 +45,7 @@ async function connect() {
 }
 connect();
 
-//Defining schema for the datebase collection "posts"...
+//NEW POSTS SCHEMA 
 const postSchema = new mongoose.Schema({
   date: String,
   title: {
@@ -66,7 +66,7 @@ const postSchema = new mongoose.Schema({
 const Post = mongoose.model('Post', postSchema);
 
 
-//new user schema.
+//NEW USER SCHEMA
 const userSchema = new mongoose.Schema({
   email: String,
   password: String,
@@ -86,6 +86,9 @@ passport.deserializeUser(User.deserializeUser());
 //MAIN APPLICATION LOGIC
 
 
+//GET LOGIC
+
+//MAIN HOME PAGE GETs
 app.get("/", (req, res) => {
 
   Post.find({})
@@ -106,51 +109,14 @@ app.get("/login", (req, res) => {
   res.render("login", );
 });
 
-app.get("/register", (req, res) => {
-  res.render("register")
-})
-
-app.get('/admin', (req, res) => {
-  if (req.isAuthenticated()) {
-      res.render("admin")
-  } else {
-      res.redirect('/login')
-  }
-});
-
-app.get("/logout", (req, res) => {
-  req.logout((err) => {
-      console.log(err)
-  });
-  res.redirect('/');
-});
-
-// gets about content
 app.get("/about", (req, res) => {
   res.render("about", {
-    aboutContent: aboutContent
   });
 });
 
-app.get("/flashcards", (req, res) => {
-  res.render('flashcards',);
-})
-
-// gets contact content 
 app.get("/contact", (req, res) => {
   res.render("contact", )
 });
-
-//gets compose page where user can create new content. 
-app.get("/compose", (req, res) => {
-  res.render("compose", );
-});
-
-app.get("/delete", (req,res) => {
-
-  res.render("delete",)
-});
-
 
 app.get('/post/:postID', (req, res) => {
 
@@ -168,6 +134,45 @@ app.get('/post/:postID', (req, res) => {
     });
 });
 
+
+// PORTFOLIO GETs & PAGES
+
+
+app.get("/flashcards", (req, res) => {
+  res.render('flashcards',);
+})
+
+
+
+// ADMIN PAGE GETs & ADDTIONALY FUNCTIONALITY
+
+app.get('/admin', (req, res) => {
+  if (req.isAuthenticated()) {
+      res.render("admin")
+  } else {
+      res.redirect('/login')
+  }
+});
+
+app.get("/compose", (req, res) => {
+  res.render("compose", );
+});
+
+app.get("/delete", (req,res) => {
+
+  res.render("delete",)
+});
+
+app.get("/logout", (req, res) => {
+  req.logout((err) => {
+      console.log(err)
+  });
+  res.redirect('/');
+});
+
+
+
+// POST LOGIC 
 
 app.post("/register", (req, res) => {
 
@@ -230,8 +235,7 @@ app.post("/compose", async (req, res) => {
 
 
 
-
-
+// LOCAL SERVER START UP...
 
 let port = process.env.PORT;
 
