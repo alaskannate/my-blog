@@ -1,31 +1,31 @@
 <%- include ('partials/header') -%>
 
-
-<div class="container-intro">
+<div class="container-body">
     <h1> Contact Me</h1>
 
     <div class="in-summery">
-    <p> 
-        My background is in art. Easily the most important insight gained from
-        that period of my life was nothing helps improvement like an candor and critics from peers.
-    </p>
-    
-    <p>
-        So with that being said, please provide any words of wisdom via my email below.
-    </p>
-    <div/>
-</div>
+        <p>
+            My background is in art. Easily the most important insight gained from
+            that period of my life was nothing helps improvement like an candor and critics from peers.
+        </p>
 
-<div class="form-group">
-    <form action="post">
-        <label for="name">First Name</label>
-        <input type="text" name="name" class="form-control" id="name">
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" id="email">
-        <label for="messageText">Message</label>
-        <textarea type="text" name="postBody" class="form-control" id="messageText" rows="3"></textarea>
-        <button type="submit">Submit</button>
-    </form>
+        <p>
+            So with that being said, please provide any words of wisdom via my email below.
+        </p>
+    </div>
+
+
+    <div class="form-group">
+        <form action="post">
+            <label for="name"><strong>First Name</strong></label>
+            <input type="text" name="name" class="form-control" id="name">
+            <label for="email"><strong>Email</strong></label>
+            <input type="email" name="email" class="form-control" id="email">
+            <label for="messageText"><strong>Message</strong></label>
+            <textarea type="text" name="postBody" class="form-control" id="messageText" rows="3"></textarea>
+            <button type="submit" class="btn btn-dark submit-btn">Submit</button>
+        </form>
+    </div>
 </div>
 
 

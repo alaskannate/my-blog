@@ -1,33 +1,27 @@
 <%- include ('partials/header') -%>
 
-<div class="container mt-5">
+<div class="container-body">
     <h1>Login</h1>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
-                <div class="card-body">
 
-                    <!-- Makes POST request to /login route -->
-                    <form action="/login" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" name="username">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password">
-                        </div>
-                        <button type="submit" class="btn btn-dark">Login</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
+<!-- Makes POST request to /login route -->
+<form action="/login" method="POST">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="username">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password">
+    </div>
+    <button type="submit" class="btn btn-dark submit-btn">Login</button>
+</form>
+</div>
 
 
 
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script> -->
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script> -->
 
 
-        <%- include ('partials/footer') -%>
+<%- include ('partials/footer') -%>

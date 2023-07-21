@@ -11,6 +11,9 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 
+const num = 123; 
+const string = "hello world"
+const list = [1, 2, 3]
 
 const app = express();
 

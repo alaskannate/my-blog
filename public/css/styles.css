@@ -5,22 +5,22 @@ body {
 }
 
 .container {
+  display: flex;
   text-align: center;
+  flex-direction: column;
+  padding: 50px;
 }
 .container-fluid {
   padding-top: 70px;
   padding-bottom: 70px;
 }
 
-.container-intro {
+.container-body {
   display: flex;
   flex-direction: column;
-  padding:100px;
+  padding: 50px 0 0 0 ;
 }
 
-.container-body {
-padding-bottom: 40px;
-}
 
 
 footer {
@@ -85,10 +85,12 @@ footer p {
 
 
 
-
-
 .post {
   text-align: center;
+}
+
+.submit-btn {
+  margin: 10px 0 0 0;
 }
 
 .wrapper {
