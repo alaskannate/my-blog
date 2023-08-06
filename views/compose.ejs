@@ -4,18 +4,56 @@
 
 <hr>
 
-
-<form action="/compose" method="POST">
-
-
-  <div class="form-group"> 
-    <label for="titleText">Title</label>
-    <input type="text" name='postTitle' class="form-control" id="titleText">
-    <label for="messageText">Message</label>
-    <textarea type="text" name="postBody" class="form-control" id="messageText" rows="3"></textarea>
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false"
+    aria-controls="multiCollapseExample1">Post to Blog</a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
+    aria-expanded="false" aria-controls="multiCollapseExample2">Create Flashcard</button>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+    aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Create Both</button>
+</p>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        <div class="newBlogPost">
+          <form action="/compose/post" method="POST">
+            <div class="form-group">
+              <label for="titleText">Post Title</label>
+              <input type="text" name='postTitle' class="form-control" id="titleText">
+              <label for="messageText">Post Message</label>
+              <textarea type="text" name="postBody" class="form-control" id="messageText" rows="3"></textarea>
+              <button class="compose-btn" type="submit">Post to Blog</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  <button type="submit">Submit</button>
-</form>
+  <div class="col-sm-6">
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+        <div class="newFlashCard">
+          <form action="/compose/flashcard" method="POST">
+            <div class="form-group">
+              <label for="flashcardTitleText">Flashcard Title</label>
+              <input type="text" name='flashcardTitle' class="form-control" id="flashcardTitleText">
+              <label for="flashcardBodyText">Flashcard Body</label>
+              <textarea type="text" name="flashcardBody" class="form-control" id="flashcardBodyText" rows="3"></textarea>
+              <button class="compose-btn" type="submit">Create Flashcard</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 
 

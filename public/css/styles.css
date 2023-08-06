@@ -4,23 +4,19 @@ body {
   height: 100%;
 }
 
-.container {
+.card { 
+  margin:10px;
+}
+.compose-btn{
+  margin-top:1rem;
+  margin-bottom: 1rem;
+}
+
+.container{
   display: flex;
   text-align: center;
   flex-direction: column;
-  padding: 50px;
 }
-.container-fluid {
-  padding-top: 70px;
-  padding-bottom: 70px;
-}
-
-.container-body {
-  display: flex;
-  flex-direction: column;
-  padding: 50px 0 0 0 ;
-}
-
 
 
 footer {
@@ -30,19 +26,34 @@ footer {
   text-align: center;
   width: 100%;
   height: 65px;
-  background-color: #245699;
+  background-color: #fedd02;
 }
+
 
 footer p {
   margin-top: 25px;
   font-size: 12px;
-  color: #fff;
+  color: #000;
+}
+
+
+.form-group{
+  margin: 0 5rem;
+}
+
+h1 {
+  margin-top:5rem;
+  margin-bottom:5rem;
 }
 
 .in-summery { 
-  padding: 50px 0;
+  margin-bottom: 5rem;
 }
 
+.intro {
+  margin-top:10rem;
+  margin-bottom: 10rem;
+}
 
 
 .navbar {
@@ -78,19 +89,22 @@ footer p {
   margin-right: 30px;
 }
 
-
-
-
-
-
-
-
 .post {
   text-align: center;
 }
 
+.content-section {
+  background-color: black;
+  border-radius: 5px;
+}
+
 .submit-btn {
   margin: 10px 0 0 0;
+}
+
+
+th {
+  text-align: center;
 }
 
 .wrapper {
@@ -98,4 +112,37 @@ footer p {
   /* Set the minimum height to the full viewport height */
   padding-bottom: 50px;
   /* Adjust the padding as needed */
+}
+
+
+
+@media (max-width: 720px) {
+
+  .container{
+    padding: 0 5rem;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    background-color:#fedd02;
+  }
+  
+  
+  footer p {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #000;
+  }
+
+  .intro {
+    
+    margin-bottom: 10rem;
+  }
 }

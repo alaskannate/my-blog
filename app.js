@@ -11,14 +11,41 @@ const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 
-const num = 123; 
-const string = "hello world"
-const list = [1, 2, 3]
-
 const app = express();
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
+
+app.customRender = function (root, name, fn) {
+
+  var engines = app.engines;
+  var cache = app.cache;
+
+  view = cache[root + '-' + name];
+
+  if (!view) {
+    view = new(app.get('view'))(name, {
+      defaultEngine: app.get('view engine'),
+      root: root,
+      engines: engines
+    });
+
+    if (!view.path) {
+      var err = new Error('Failed to lookup view "' + name + '" in views directory "' + root + '"');
+      err.view = view;
+      return fn(err);
+    }
+
+    cache[root + '-' + name] = view;
+  }
+
+  try {
+    view.render(opts, fn);
+  } catch (err) {
+    fn(err);
+  }
+}
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -68,6 +95,12 @@ const postSchema = new mongoose.Schema({
 });
 const Post = mongoose.model('Post', postSchema);
 
+//NEW FLASHCARD SCHEMA
+const flashcardSchema = new mongoose.Schema({
+  title: String,
+  body: String,
+});
+const Card = mongoose.model('Card', flashcardSchema)
 
 //NEW USER SCHEMA
 const userSchema = new mongoose.Schema({
@@ -89,18 +122,17 @@ passport.deserializeUser(User.deserializeUser());
 //MAIN APPLICATION LOGIC
 
 
-//GET LOGIC
-
 //MAIN HOME PAGE GETs
 app.get("/", (req, res) => {
 
   Post.find({})
-  .sort({ _id: -1 })
+    .sort({
+      _id: -1
+    })
     .then((foundPosts) => {
       res.render('home', {
         newPost: foundPosts,
       });
-      console.log(foundPosts)
     })
     .catch((error) => {
       console.error('Error Finding items:', error);
@@ -109,12 +141,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login", );
+  res.render("login");
 });
 
 app.get("/about", (req, res) => {
-  res.render("about", {
-  });
+  res.render("about", {});
 });
 
 app.get("/contact", (req, res) => {
@@ -140,20 +171,40 @@ app.get('/post/:postID', (req, res) => {
 
 // PORTFOLIO GETs & PAGES
 
+app.get("/portfolio", (req, res) => {
+  res.render('portfolio', )
+});
+
 
 app.get("/flashcards", (req, res) => {
-  res.render('flashcards',);
+
+  Card.find({})
+    .then((foundCard) => {
+      res.render('flashcards', {
+        newCard: foundCard
+      });
+      console.log(foundCard)
+    })
+    .catch((error) => {
+      console.error('Error Finding items:', error);
+      res.status(500).send(error);
+    });
+});
+
+app.get("/crypto", (req,res) => {
+  res.render('crypto')
 })
 
 
 
-// ADMIN PAGE GETs & ADDTIONALY FUNCTIONALITY
+
+// ADMIN PAGE ADDTIONALY FUNCTIONALITY
 
 app.get('/admin', (req, res) => {
   if (req.isAuthenticated()) {
-      res.render("admin")
+    res.render("admin")
   } else {
-      res.redirect('/login')
+    res.redirect('/login')
   }
 });
 
@@ -161,14 +212,29 @@ app.get("/compose", (req, res) => {
   res.render("compose", );
 });
 
-app.get("/delete", (req,res) => {
-
-  res.render("delete",)
+app.get("/delete", (req, res) => {
+  // Using Promise.all to handle both queries simultaneously
+  Promise.all([
+    Post.find({}).sort({ _id: -1 }),
+    Card.find({}).sort({ _id: -1 })
+  ])
+    .then(([foundPosts, foundCard]) => {
+      // Render the view after both queries are done
+      res.render('delete', {
+        newPost: foundPosts,
+        newCard: foundCard,
+      });
+    })
+    .catch((error) => {
+      console.error('Error Finding items:', error);
+      res.status(500).send(error);
+    });
 });
+
 
 app.get("/logout", (req, res) => {
   req.logout((err) => {
-      console.log(err)
+    console.log(err)
   });
   res.redirect('/');
 });
@@ -180,60 +246,134 @@ app.get("/logout", (req, res) => {
 app.post("/register", (req, res) => {
 
   User.register({
-      username: req.body.username
+    username: req.body.username
   }, req.body.password, (err, user) => {
-      if (err) {
-          console.log(err);
-          res.redirect('/register');
-      } else {
-          passport.authenticate('local')(req, res, () => {
-              res.redirect('/admin');
-          })
-      }
+    if (err) {
+      console.log(err);
+      res.redirect('/register');
+    } else {
+      passport.authenticate('local')(req, res, () => {
+        res.redirect('/admin');
+      })
+    }
   })
 });
 
 app.post("/login", (req, res) => {
 
   const user = new User({
-      username: req.body.username,
-      password: req.body.password
+    username: req.body.username,
+    password: req.body.password
   });
 
   req.login(user, (err) => {
-      if (err) {
-          console.log(err);
-      } else {
-          passport.authenticate('local')(req, res, () => {
-              res.redirect('/admin');
-          })
-      };
+    if (err) {
+      console.log("Error occurred during login:", err);
+    }
+    passport.authenticate('local')(req, res, () => {
+      res.redirect('/admin');
+    })
 
   });
 
 });
 
-app.post("/compose", async (req, res) => {
-
+// Route for creating a new post
+app.post("/compose/post", async (req, res) => {
   const postDate = date.getDate();
   const postTitle = req.body.postTitle;
   const postBody = req.body.postBody;
 
-  //Creating a new item instance...
-  const newPost = new Post({
-    date: postDate,
-    title: postTitle,
-    body: postBody
-  });
   try {
-    //... and then saving item to mongoDB collection.
+    // Save the new post
+    const newPost = new Post({
+      date: postDate,
+      title: postTitle,
+      body: postBody,
+    });
     await newPost.save();
-    res.redirect("/");
+
+    // Redirect to the appropriate route after the post is saved
+    res.redirect("/compose");
   } catch (err) {
-    console.log(err)
-    res.status(500).send("Error saving items to database.");
+    console.log(err);
+    res.status(500).send("Error saving post to database.");
   }
 });
+
+// Route for creating a new flashcard
+app.post("/compose/flashcard", async (req, res) => {
+  const flashcardTitle = req.body.flashcardTitle;
+  const flashcardBody = req.body.flashcardBody;
+
+  try {
+    // Save the new flashcard
+    const newFlashcard = new Card({
+      title: flashcardTitle,
+      body: flashcardBody,
+    });
+    await newFlashcard.save();
+
+    // Redirect to the appropriate route after the flashcard is saved
+    res.redirect("/flashcards");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error saving flashcard to database.");
+  }
+});
+
+app.post("/delete/post", async (req, res) => {
+  const blogIDArray = req.body.blogID;
+
+  async function deletePostByID(postID) {
+    try {
+      // Use Mongoose's deleteOne method to delete the post by its ID
+      await Post.deleteOne({ _id: postID });
+      console.log(`Post with ID ${postID} deleted.`);
+    } catch (error) {
+      console.error(`Error deleting post with ID ${postID}:`, error);
+    }
+  }
+
+  if (Array.isArray(blogIDArray)) {
+    // If multiple checkboxes are selected (array of IDs)
+    blogIDArray.forEach((postID) => deletePostByID(postID));
+  } else if (typeof blogIDArray === "string") {
+    // If only one checkbox is selected (single ID)
+    deletePostByID(blogIDArray);
+  }
+
+  res.redirect("/delete"); // Redirect to the appropriate URL after deletion
+});
+
+
+app.post("/delete/flashcard", async (req, res) => {
+  const flashcardIDArray = req.body.flashcardID;
+
+  async function deletePostByID(flashcardID) {
+    try {
+      // Use Mongoose's deleteOne method to delete the post by its ID
+      await Card.deleteOne({ _id: flashcardID });
+      console.log(`Post with ID ${flashcardID} deleted.`);
+    } catch (error) {
+      console.error(`Error deleting post with ID ${flashcardID}:`, error);
+    }
+  }
+
+  if (Array.isArray(flashcardIDArray)) {
+    // If multiple checkboxes are selected (array of IDs)
+    flashcardIDArray.forEach((flashcardID) => deletePostByID(flashcardID));
+  } else if (typeof flashcardIDArray === "string") {
+    // If only one checkbox is selected (single ID)
+    deletePostByID(flashcardIDArray);
+  }
+
+  res.redirect("/delete"); // Redirect to the appropriate URL after deletion
+});
+
+
+
+
 
 
 

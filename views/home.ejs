@@ -1,28 +1,72 @@
 <%- include ('partials/header') -%>
 
-<div class="container-intro">
-    <div class="greeting">
-        <h1>Hi, my name is Nathaniel Ewing</h1>
+
+
+<div class="intro">
+    <div class="jumbotron">
+        <h1 class="display-4">Hi! my name is Nathaniel.</h1>
+        <h2 class="display-6">I'm a Fullstack Developer</h2>
+        <p class="lead">In this personal blog I aim to showcase my progress as I expand my skills as a Dev.</p>
+        <a class="btn btn-dark" href="/about" role="button">Learn more</a>
+        </p>
     </div>
-    <div>
-        <h3>I'm a Software/web Developer</h3>
-    </div>
-
-    <div class="in-summery">
-        <p>In this personal blog I track and showcase my progress as software developer.
-            As i build projects I will share both my insights and learnings,
-            But also challanges and tribulations. To learn more see my <a href="/about">about page</a>.
-            <p />
-
-
-    </div>
-
-
 </div>
 
+<div class="content-section">
+    <div class="jumbotron">
+        <h1 class="display-4">Check out what i've built</h1>
+        <p class="lead"></p>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Learn w/Flashcards</h5>
+                    <p class="card-text">A Tech Flash card app that can be sorted by diffrent tech catagories</p>
+                    <a href="/flashcards" class="btn btn-dark">Try Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Anonymous profiles & tickets </h5>
+                    <p class="card-text">Create a profile, submit secure and confidenal information anonymously</p>
+                    <a href="#" class="btn btn-dark">Try Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Crypto Currencies Company</h5>
+                    <p class="card-text"> View and compare crypto prices.</p>
+                    <a href="/crypto" class="btn btn-dark">See now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Personal Blog website</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-dark">See now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('partials/about') -%>
+
+<%- include ('contact') -%>
 
 
-<div class="container-posts">
+
+<!-- <div class="container-posts">
     <% newPost.forEach(function(post){ %>
     <div class="post">
         <hr>
@@ -34,7 +78,7 @@
 
     </div>
     <% }) %>
-</div>
+</div> -->
 
 
 

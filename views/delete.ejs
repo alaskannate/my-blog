@@ -1,10 +1,72 @@
 <%- include ('partials/admin-header') -%>
 
 
-<h1>Delete Posts Here </h1>
+<h1>Delete Page</h1>
+
+<div class="row">
 
 
+    <div class="col-sm-6">
+        <h2>Delete Posts Here</h2>
+        <form id="postForm" action="/delete/post" method="POST"> <!-- Update the form action and method -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- Move the div element outside of the th elements -->
+                        <th scope="col">#</th>
+                        <th scope="col">Post Date</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <% newPost.forEach(function(post, index) { %> <!-- Add index parameter to the forEach loop -->
+                    <tbody>
+                        <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= post.date %></td>
+                            <td><%= post.title %></td>
+                            <td>
+                                <!-- Add a unique ID for each checkbox using the post ID -->
+                                <input type="checkbox" id="post<%= post.id %>" name="blogID" value="<%= post.id %>">
+                            </td>
+                        </tr>
+                    </tbody>
+                <% }) %>
+            </table>
+        <button type="submit">Delete Post</button>
+    </form> <!-- Close the form tag here -->
+    </div>
 
+    
+
+    <div class="col-sm-6">
+        <h2>Delete Flashcards Here</h2>
+        <form id="flashcardForm" action="/delete/flashcard" method="POST"> <!-- Update the form action and method -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- Move the div element outside of the th elements -->
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <% newCard.forEach(function(flashcard, index) { %>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= flashcard.title %></td>
+                            <td>
+                                <input type="checkbox" id="flashcard<%= flashcard.id %>" name="flashcardID" value="<%= flashcard.id %>">
+                            </td>
+                        </tr>
+                    </tbody>
+                <% }) %>
+            </table>
+        <button type="submit">Delete Post</button>
+    </form> <!-- Close the form tag here -->
+    </div>
+</div>
 
 <%- include ('partials/footer') -%>
 
