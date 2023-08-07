@@ -4,23 +4,16 @@ body {
   height: 100%;
 }
 
-.card { 
-  margin:10px;
-}
 .compose-btn{
   margin-top:1rem;
   margin-bottom: 1rem;
 }
 
-.container{
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-}
+
+
 
 
 footer {
-  position: fixed;
   left: 0;
   bottom: 0;
   text-align: center;
@@ -46,15 +39,8 @@ h1 {
   margin-bottom:5rem;
 }
 
-.in-summery { 
-  margin-bottom: 5rem;
-}
 
-.intro {
-  margin-top:10rem;
-  margin-bottom: 10rem;
-}
-
+/* nav bar */
 
 .navbar {
   padding-top: 15px;
@@ -89,14 +75,42 @@ h1 {
   margin-right: 30px;
 }
 
+/* Content sections of home page */
+
+.content-section{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  padding: 7rem 10rem 15rem 10rem;
+}
+
+.intro {
+  background-color: #fedd02;
+
+}
+
+.portfolio {
+}
+
+.card { 
+  margin:10px;
+}
+
+.card-body {
+}
+
+.card-text {
+  height: 100px;
+  overflow:auto;
+}
+
+
+
+
 .post {
   text-align: center;
 }
 
-.content-section {
-  background-color: black;
-  border-radius: 5px;
-}
 
 .submit-btn {
   margin: 10px 0 0 0;
