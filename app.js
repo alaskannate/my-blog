@@ -97,9 +97,12 @@ const Post = mongoose.model('Post', postSchema);
 
 //NEW FLASHCARD SCHEMA
 const flashcardSchema = new mongoose.Schema({
-  title: String,
-  body: String,
+  question: String,
+  answer: String,
+  category: String,
+  // Add other fields as needed
 });
+
 const Card = mongoose.model('Card', flashcardSchema)
 
 //NEW USER SCHEMA
@@ -120,7 +123,6 @@ passport.deserializeUser(User.deserializeUser());
 
 
 //MAIN APPLICATION LOGIC
-
 
 //MAIN HOME PAGE GETs
 app.get("/", (req, res) => {
@@ -144,13 +146,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/about", (req, res) => {
-  res.render("about", {});
-});
 
-app.get("/contact", (req, res) => {
-  res.render("contact", )
-});
 
 app.get('/post/:postID', (req, res) => {
 
@@ -171,10 +167,6 @@ app.get('/post/:postID', (req, res) => {
 
 // PORTFOLIO GETs & PAGES
 
-app.get("/portfolio", (req, res) => {
-  res.render('portfolio', )
-});
-
 
 app.get("/flashcards", (req, res) => {
 
@@ -191,7 +183,7 @@ app.get("/flashcards", (req, res) => {
     });
 });
 
-app.get("/crypto", (req,res) => {
+app.get("/crypto", (req, res) => {
   res.render('crypto')
 })
 
@@ -215,9 +207,13 @@ app.get("/compose", (req, res) => {
 app.get("/delete", (req, res) => {
   // Using Promise.all to handle both queries simultaneously
   Promise.all([
-    Post.find({}).sort({ _id: -1 }),
-    Card.find({}).sort({ _id: -1 })
-  ])
+      Post.find({}).sort({
+        _id: -1
+      }),
+      Card.find({}).sort({
+        _id: -1
+      })
+    ])
     .then(([foundPosts, foundCard]) => {
       // Render the view after both queries are done
       res.render('delete', {
@@ -303,19 +299,21 @@ app.post("/compose/post", async (req, res) => {
 
 // Route for creating a new flashcard
 app.post("/compose/flashcard", async (req, res) => {
-  const flashcardTitle = req.body.flashcardTitle;
-  const flashcardBody = req.body.flashcardBody;
+  const flashcardQustion = req.body.flashcardQustion;
+  const flashcardAnswer = req.body.flashcardAnswer;
+  const flashcardCategory = req.body.flashcardCategory
 
   try {
     // Save the new flashcard
     const newFlashcard = new Card({
-      title: flashcardTitle,
-      body: flashcardBody,
+      question: flashcardQustion,
+      answer: flashcardAnswer,
+      category: flashcardCategory,
     });
     await newFlashcard.save();
-
-    // Redirect to the appropriate route after the flashcard is saved
-    res.redirect("/flashcards");
+    console.log("A new flashcard has been made:" + newFlashcard)
+    res.redirect("/compose");
+    
   } catch (err) {
     console.log(err);
     res.status(500).send("Error saving flashcard to database.");
@@ -328,7 +326,9 @@ app.post("/delete/post", async (req, res) => {
   async function deletePostByID(postID) {
     try {
       // Use Mongoose's deleteOne method to delete the post by its ID
-      await Post.deleteOne({ _id: postID });
+      await Post.deleteOne({
+        _id: postID
+      });
       console.log(`Post with ID ${postID} deleted.`);
     } catch (error) {
       console.error(`Error deleting post with ID ${postID}:`, error);
@@ -353,7 +353,9 @@ app.post("/delete/flashcard", async (req, res) => {
   async function deletePostByID(flashcardID) {
     try {
       // Use Mongoose's deleteOne method to delete the post by its ID
-      await Card.deleteOne({ _id: flashcardID });
+      await Card.deleteOne({
+        _id: flashcardID
+      });
       console.log(`Post with ID ${flashcardID} deleted.`);
     } catch (error) {
       console.error(`Error deleting post with ID ${flashcardID}:`, error);

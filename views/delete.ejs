@@ -47,15 +47,17 @@
                     <tr>
                         <!-- Move the div element outside of the th elements -->
                         <th scope="col">#</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Qustion</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <% newCard.forEach(function(flashcard, index) { %>
+                <% newCard.forEach(function(foundCard, index) { %>
                     <tbody>
                         <tr>
                             <th scope="row"><%= index + 1 %></th>
-                            <td><%= flashcard.title %></td>
+                            <td><%= foundCard.question %></td>
+                            <td><%= foundCard.category%></td>
                             <td>
                                 <input type="checkbox" id="flashcard<%= flashcard.id %>" name="flashcardID" value="<%= flashcard.id %>">
                             </td>

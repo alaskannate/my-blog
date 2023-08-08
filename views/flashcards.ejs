@@ -1,35 +1,52 @@
-<%- include ('partials/header') -%>
-
-<h1>Flash Cards</h1>
-
-<p>Flash cards that have helped me learn and master challanging software concepts.
-    While these might come in handy to someone who might find themself on this page,
-    the true value of flash cards for me has come though the process of hand writing
-    each and every one. as i search for a summery of the concept if i encounter any other
-    word or concept i dont know i simply write another flash card. yes it's tetious, but
-    no one said learning coding was going to be easy.
-</p>
+<%- include ('partials/portfolio-header') -%>
 
 
+<div class="content-section">
+    <h1>Flash Cards</h1>
 
+    <p>Flash cards that have helped me learn and master challanging software concepts.
+        While these might come in handy to someone who might find themself on this page,
+        the true value of flash cards for me has come though the process of hand writing
+        each and every one. as i search for a summery of the concept if i encounter any other
+        word or concept i dont know i simply write another flash card. yes it's tetious, but
+        no one said learning coding was going to be easy.
+    </p>
 
+    <h2>My method</h2>
 
-<p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-        aria-controls="collapseExample">
-        Try a new card
-    </a>
-</p>
-<div class="collapse" id="collapseExample">
-    <% newCard.forEach(function(foundCard){ %>
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title"><%= foundCard.title %></h5>
-            <p class="card-text">the body of the card.</p>
-        </div>
+    <p> I utilized Node.js and express for routehandling, MongoDB and mongoose for data Managment, and bootstrap for
+        front end. <br>
+        The next part was most defenantly a brute force approce to data retrival and data entry. so first i used <a>This
+            prompt
+            <!-- I need you to make me 10 flashcards in each category: HTML, CSS, and JavaScript, with the columns for question, answer, category, and difficulty. These should represent 20% of the concepts that help me accomplish 80% or a majority of my software work. -->
+        </a> to Chatgpt4, which then created a database of subjectively the most importan concepts for each of
+        the categories. I then added the content to a CSV file. And using this python script i had the file me entered
+        into the compose page i made on the backend.
+        like i said, this is the brute force approch.
+    </p>
+    <button class="btn btn-dark">Deal Cards</button>
+    <div class="container mt-5">
+        <div class="row">
+            <% newCard.forEach(function(foundCard){ %>
+                <div class="flip-container" id="card">
+                    <div class="flipper">
+                        <div class="front p-3">
+                            <h5><%=foundCard.category%></h5>
+                            <h3><%=foundCard.question%></h3>
+                            <p>Click to flip</p>
+                        </div>
+                        <div class="back p-3">
+                            <p><%=foundCard.answer%></p>
+                            <h5>Back Side</h5>
+                            <p>Click to flip back</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
     </div>
-    <% }) %>
 </div>
+
 
 
 
