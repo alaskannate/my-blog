@@ -1,4 +1,5 @@
 
+// EFFECTS / STYLE 
 window.addEventListener('scroll', function() {
     var navbar = document.querySelector('.navbar');
     var scrollPosition = window.scrollY || window.scrollTop;
@@ -15,3 +16,5 @@ window.addEventListener('scroll', function() {
     navbar.style.backdropFilter = 'blur(' + blur + 'px)';
 });
 
+//DYNAMIC UPDATING 
+document.getElementById("year").innerHTML = new Date().getFullYear();

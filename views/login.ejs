@@ -1,21 +1,20 @@
 <%- include ('partials/header') -%>
 
-<div class="container-body">
+<div id="login" class="content-section">
     <h1>Login</h1>
 
-
-<!-- Makes POST request to /login route -->
-<form action="/login" method="POST">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" name="username">
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password">
-    </div>
-    <button type="submit" class="btn btn-dark submit-btn">Login</button>
-</form>
+    <!-- Makes POST request to /login route -->
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+        <button id="login-btn" type="submit" class="btn btn-dark submit-btn">Login</button>
+    </form>
 </div>
 
 

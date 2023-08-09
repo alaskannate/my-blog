@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
+const nodemailer = require("nodemailer")
 const date = require(__dirname + "/date.js");
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -15,40 +16,41 @@ const app = express();
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
-
-app.customRender = function (root, name, fn) {
-
-  var engines = app.engines;
-  var cache = app.cache;
-
-  view = cache[root + '-' + name];
-
-  if (!view) {
-    view = new(app.get('view'))(name, {
-      defaultEngine: app.get('view engine'),
-      root: root,
-      engines: engines
-    });
-
-    if (!view.path) {
-      var err = new Error('Failed to lookup view "' + name + '" in views directory "' + root + '"');
-      err.view = view;
-      return fn(err);
-    }
-
-    cache[root + '-' + name] = view;
-  }
-
-  try {
-    view.render(opts, fn);
-  } catch (err) {
-    fn(err);
-  }
-}
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+
+// app.customRender = function (root, name, fn) {
+
+//   var engines = app.engines;
+//   var cache = app.cache;
+
+//   view = cache[root + '-' + name];
+
+//   if (!view) {
+//     view = new(app.get('view'))(name, {
+//       defaultEngine: app.get('view engine'),
+//       root: root,
+//       engines: engines
+//     });
+
+//     if (!view.path) {
+//       var err = new Error('Failed to lookup view "' + name + '" in views directory "' + root + '"');
+//       err.view = view;
+//       return fn(err);
+//     }
+
+//     cache[root + '-' + name] = view;
+//   }
+
+//   try {
+//     view.render(opts, fn);
+//   } catch (err) {
+//     fn(err);
+//   }
+// }
+
 
 // Create session 
 app.use(session({
@@ -124,22 +126,10 @@ passport.deserializeUser(User.deserializeUser());
 
 //MAIN APPLICATION LOGIC
 
+
 //MAIN HOME PAGE GETs
 app.get("/", (req, res) => {
-
-  Post.find({})
-    .sort({
-      _id: -1
-    })
-    .then((foundPosts) => {
-      res.render('home', {
-        newPost: foundPosts,
-      });
-    })
-    .catch((error) => {
-      console.error('Error Finding items:', error);
-      res.status(500).send(error);
-    });
+  res.render("home",)
 });
 
 app.get("/login", (req, res) => {
@@ -165,6 +155,8 @@ app.get('/post/:postID', (req, res) => {
 });
 
 
+
+
 // PORTFOLIO GETs & PAGES
 
 
@@ -185,6 +177,22 @@ app.get("/flashcards", (req, res) => {
 
 app.get("/crypto", (req, res) => {
   res.render('crypto')
+})
+
+app.get("/blog", (req,res) => {
+  Post.find({})
+  .sort({
+    _id: -1
+  })
+  .then((foundPosts) => {
+    res.render('blog', {
+      newPost: foundPosts,
+    });
+  })
+  .catch((error) => {
+    console.error('Error Finding items:', error);
+    res.status(500).send(error);
+  });
 })
 
 
@@ -237,7 +245,29 @@ app.get("/logout", (req, res) => {
 
 
 
-// POST LOGIC 
+//   app.post("/contact", (req, res) => {
+//     const { name, email, subject, message } = req.body;
+  
+//     const mailOptions = {
+//       from: email,
+//       to: process.env.GMAIL_USER, // Replace with your email
+//       subject: subject,
+//       text: message
+//     };
+
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       console.log(error);
+//       res.status(500).send('An error occurred');
+//     } else {
+//       console.log(`Email sent: ${info.response}`);
+//       res.status(200).send('Email sent successfully');
+//     }
+//   });
+// });
+
+
+
 
 app.post("/register", (req, res) => {
 
@@ -313,7 +343,7 @@ app.post("/compose/flashcard", async (req, res) => {
     await newFlashcard.save();
     console.log("A new flashcard has been made:" + newFlashcard)
     res.redirect("/compose");
-    
+
   } catch (err) {
     console.log(err);
     res.status(500).send("Error saving flashcard to database.");
