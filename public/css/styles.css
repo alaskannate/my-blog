@@ -1,271 +1,208 @@
 html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Space Grotesk', sans-serif;
-  padding-top: 5rem;
-  background-color: #fedd02;
-  display:flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-body .btn {
-  box-shadow: -5px -5px 3px 0 rgba(0,0,0,0.3),-5px -5px 3px 0 #fedd02;
-  padding: 1rem 4rem;
-  margin-bottom: 1rem;
-
-}
-body .btn:hover {
-  box-shadow: 5px 5px 3px 0 rgba(0,0,0,0.3),5px 5px 3px 0 #fedd02;
-  color:#fedd02;
-  cursor: pointer;
-}
-
-
-#login .content-section {
-  padding-top: 1rem;
-}
-#login-btn{
-  margin-top: 2rem;
-}
-
-.wrapper {
-  min-height: 100vh;
-  /* Set the minimum height to the full viewport height */
-  padding-bottom: 50px;
-  /* Adjust the padding as needed */
-}
-
-h1{
-  margin-top:3rem;
-  margin-bottom:5rem;
-}
-
-
-
-
-.compose-btn{
-  margin-top:1rem;
-  margin-bottom: 1rem;
-}
-
-.form-group{
-  margin: 0 5rem;
-}
-
-
-
-
-/* nav bar */
-
-.navbar {
-
-  position: fixed; /* or you can use 'sticky' */
-  top: 0;
-  width: 100%;
-  z-index: 1000; /* This ensures that the navbar stays above other content */
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border: 0;
-  border-radius: 0;
-  margin-bottom: 0;
-  font-size: 12px;
-  letter-spacing: 5px;
-  transition: opacity 0.5s, backdrop-filter 0.5s; /* Adjust timing as needed */
-}
-
-.navbar-brand {
-  padding-left: 30px;
-}
-
-.navbar-nav .nav-link {
-  margin-left: 30px;
-}
-
-.navbar-nav li a:hover {
-  color: #245699 !important;
-}
-
-.navbar-right {
-  margin-left: auto;
-}
-.navbar-right li {
-  padding-right: 15px;
-}
-
-.navbar-toggler {
-  margin-right: 30px;
-}
-
-/* Content sections of home page */
-
-.content-section{
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  padding: 10rem 14rem 10rem 14rem;
-}
-/* intro section */
-#intro {
-  background-color: #fedd02;
-  color: #000;
-  width: 100%;
-  /* Add other styling as needed */
-}
-
-#intro h2 {
-  margin-bottom:3rem;
-}
-
-#intro .intro-cta-btn {
-  background-color:#212529;
-  box-shadow: -5px -5px 3px 0 rgba(0,0,0,0.3),-5px -5px 3px 0 #245699;
-  padding: 1rem 4rem;
-  margin: 1rem;
-
-}
-
-#intro .intro-cta-btn:hover{
-  box-shadow: 5px 5px 3px 0 rgba(0,0,0,0.3),5px 5px 3px 0 #245699;
-}
-
-
-
-/* portfolio section */
-
-
-#portfolio {
-  background-color:#212529;
-}
-
-#portfolio h1 {
-  color:#fff;
-}
-
-#portfolio-lead { 
-  color: #fff;
-}
-
-.card { 
-  background-color: #fff;
-  color: #212529;
-  margin:10px;
-  border-radius: 10px;
-}
-
-.card-title {
-  height:35px;
-  margin-top: 1rem;
-}
-
-.card-text {
-  padding:1rem 3rem;
-  height: 150px;
-  overflow:auto;
-}
-
-
-
-
-/* about section  */
-
-
-#about {
-  background-color: #245699;
-  color: white;
-}
-#about h3 {
-  margin-top:5rem;
-  margin-bottom:3rem;
-}
-
-/* contact section */
-
-
-#contact {
-background-color: white;
-}
-
-.post {
-  text-align: center;
-}
-
-
-#contact .btn {
-  margin: 2rem 0 0 0;
-}
-
-
-th {
-  text-align: center;
-}
-
-
-
-
-/* footer section */
-footer {
-  margin-top:auto;
-  text-align: center;
-  width: 100%;
-  height: 65px;
-  background-color: #fedd02;
-}
-
-
-footer p {
-  margin-top: 25px;
-  font-size: 12px;
-  color: #000;
-}
-
-/* FLASHCARD APPLICATION */
-
-.flip-container {
-  perspective: 1000px;
-}
-.flip-container:hover .flipper, .flip-container.hover .flipper {
-  transform: rotateY(180deg);
-}
-.flip-container, .front, .back {
-  width: 300px;
-  height: 200px;
-}
-.flipper {
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
-}
-.front, .back {
-  position: absolute;
-  backface-visibility: hidden;
-}
-.front {
-  background: #bbb;
-  color: black;
-}
-.back {
-  background: #555;
-  color: white;
-  transform: rotateY(180deg);
-}
-
-/* ADMIN STYLES */
-#delete.content-section {
-  padding:10rem 0;
-}
-
-@media (max-width: 790px) {
-
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    padding-top: 5rem;
+    background-color: #fedd02;
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  body .btn {
+    box-shadow: -5px -5px 3px 0 rgba(0,0,0,0.3),-5px -5px 3px 0 #fedd02;
+    padding: 1rem 4rem;
+    margin-bottom: 1rem;
+  
+  }
+  body .btn:hover {
+    box-shadow: 5px 5px 3px 0 rgba(0,0,0,0.3),5px 5px 3px 0 #fedd02;
+    color:#fedd02;
+    cursor: pointer;
+  }
+  
+  
+  #login .content-section {
+    padding-top: 1rem;
+  }
+  #login-btn{
+    margin-top: 2rem;
+  }
+  
+  .wrapper {
+    min-height: 100vh;
+    /* Set the minimum height to the full viewport height */
+    padding-bottom: 50px;
+    /* Adjust the padding as needed */
+  }
+  
+  h1{
+    margin-top:3rem;
+    margin-bottom:5rem;
+  }
+  
+  
+  
+  
+  .compose-btn{
+    margin-top:1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group{
+    margin: 0 5rem;
+  }
+  
+  
+  
+  
+  /* nav bar */
+  
+  .navbar {
+  
+    position: fixed; /* or you can use 'sticky' */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* This ensures that the navbar stays above other content */
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+    transition: opacity 0.5s, backdrop-filter 0.5s; /* Adjust timing as needed */
+  }
+  
+  .navbar-brand {
+    padding-left: 30px;
+  }
+  
+  .navbar-nav .nav-link {
+    margin-left: 30px;
+  }
+  
+  .navbar-nav li a:hover {
+    color: #245699 !important;
+  }
+  
+  .navbar-right {
+    margin-left: auto;
+  }
+  .navbar-right li {
+    padding-right: 15px;
+  }
+  
+  .navbar-toggler {
+    margin-right: 30px;
+  }
+  
+  /* Content sections of home page */
+  
   .content-section{
     display: flex;
     text-align: center;
     flex-direction: column;
-    padding: 2rem 2rem 7rem 2rem;
+    padding: 10rem 14rem 10rem 14rem;
+  }
+  /* intro section */
+  #intro {
+    background-color: #fedd02;
+    color: #000;
+    width: 100%;
+    /* Add other styling as needed */
+  }
+  
+  #intro h2 {
+    margin-bottom:3rem;
+  }
+  
+  #intro .intro-cta-btn {
+    background-color:#212529;
+    box-shadow: -5px -5px 3px 0 rgba(0,0,0,0.3),-5px -5px 3px 0 #245699;
+    padding: 1rem 4rem;
+    margin: 1rem;
+  
+  }
+  
+  #intro .intro-cta-btn:hover{
+    box-shadow: 5px 5px 3px 0 rgba(0,0,0,0.3),5px 5px 3px 0 #245699;
+  }
+  
+  
+  
+  /* portfolio section */
+  
+  
+  #portfolio {
+    background-color:#212529;
+  }
+  
+  #portfolio h1 {
+    color:#fff;
+  }
+  
+  #portfolio-lead { 
+    color: #fff;
+  }
+  
+  .post-card { 
+    background-color: #fff;
+    color: #212529;
+    margin:10px;
+    border-radius: 10px;
+  }
+  
+  .card-title {
+    height:35px;
+    margin-top: 1rem;
+  }
+  
+  .card-text {
+    padding:1rem 3rem;
+    height: 150px;
+    overflow:auto;
+  }
+  
+  
+  
+  
+  /* about section  */
+  
+  
+  #about {
+    background-color: #245699;
+    color: white;
+  }
+  #about h3 {
+    margin-top:5rem;
+    margin-bottom:3rem;
+  }
+  
+  /* contact section */
+  
+  
+  #contact {
+  background-color: white;
   }
 
+  
+  
+  #contact .btn {
+    margin: 2rem 0 0 0;
+  }
+  
+  
+  th {
+    text-align: center;
+  }
+  
+  
+  
+  
+  /* footer section */
   footer {
     margin-top:auto;
     text-align: center;
@@ -280,9 +217,103 @@ footer p {
     font-size: 12px;
     color: #000;
   }
+  
 
-  .intro {
-    
-    margin-bottom: 10rem;
+
+  /* BLOG APPLICATION */
+
+
+  .container-posts{ 
+    display:flex;
+    justify-content:center;
   }
-}
+
+  #heading-box{
+    margin-top: 2rem;
+    background-color: #212529;
+    color:white;
+  }
+
+  .blog-body {
+    display:flex;
+    justify-content:center;
+    flex-wrap: wrap;
+  }
+
+
+  .post-card{ 
+    border-radius: 2px;
+    width:450px;
+    height:200px;
+    padding: 2rem;
+    background-color:#212529 ;
+    color: white;
+  }
+
+
+
+  /* FLASHCARD APPLICATION */
+  
+  .flip-container {
+    perspective: 1000px;
+  }
+  .flip-container:hover .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+  }
+  .flip-container, .front, .back {
+    width: 300px;
+    height: 200px;
+  }
+  .flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .front, .back {
+    position: absolute;
+    backface-visibility: hidden;
+  }
+  .front {
+    background: #bbb;
+    color: black;
+  }
+  .back {
+    background: #555;
+    color: white;
+    transform: rotateY(180deg);
+  }
+  
+  /* ADMIN STYLES */
+  #delete.content-section {
+    padding:10rem 0;
+  }
+  
+  @media (max-width: 790px) {
+  
+    .content-section{
+      display: flex;
+      text-align: center;
+      flex-direction: column;
+      padding: 2rem 2rem 7rem 2rem;
+    }
+  
+    footer {
+      margin-top:auto;
+      text-align: center;
+      width: 100%;
+      height: 65px;
+      background-color: #fedd02;
+    }
+    
+    
+    footer p {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #000;
+    }
+  
+    .intro {
+      
+      margin-bottom: 10rem;
+    }
+  }

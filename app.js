@@ -4,12 +4,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
-const nodemailer = require("nodemailer")
 const date = require(__dirname + "/date.js");
-const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
+const connectDB = require('./mongo-db/connections')
+const {Post, Card, User} = require('./mongo-db/models');
+
+
 
 
 const app = express();
@@ -20,37 +21,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-
-// app.customRender = function (root, name, fn) {
-
-//   var engines = app.engines;
-//   var cache = app.cache;
-
-//   view = cache[root + '-' + name];
-
-//   if (!view) {
-//     view = new(app.get('view'))(name, {
-//       defaultEngine: app.get('view engine'),
-//       root: root,
-//       engines: engines
-//     });
-
-//     if (!view.path) {
-//       var err = new Error('Failed to lookup view "' + name + '" in views directory "' + root + '"');
-//       err.view = view;
-//       return fn(err);
-//     }
-
-//     cache[root + '-' + name] = view;
-//   }
-
-//   try {
-//     view.render(opts, fn);
-//   } catch (err) {
-//     fn(err);
-//   }
-// }
-
+//Connection to DB. See mongo-db/connections.js
+connectDB()
 
 // Create session 
 app.use(session({
@@ -61,61 +33,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// MAIN DATABASE SECTION
-
-//Connecting to our database...
-const uri = process.env.MONGO_DB_URI
-
-async function connect() {
-  try {
-    await mongoose.connect(uri);
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log(error);
-  }
-}
-connect();
-
-//NEW POSTS SCHEMA 
-const postSchema = new mongoose.Schema({
-  date: String,
-  title: {
-    type: String,
-    required: [true, "a title is required"],
-    minlength: [1, "This title is too short"],
-    maxlength: [75, "This title is too long"],
-    trim: true,
-  },
-  body: {
-    type: String,
-    required: [true, "a text body is required"],
-    minlength: [10, "This text body is too short"],
-    maxlength: [10000, "This text body is too long"],
-    trim: true,
-  }
-});
-const Post = mongoose.model('Post', postSchema);
-
-//NEW FLASHCARD SCHEMA
-const flashcardSchema = new mongoose.Schema({
-  question: String,
-  answer: String,
-  category: String,
-  // Add other fields as needed
-});
-
-const Card = mongoose.model('Card', flashcardSchema)
-
-//NEW USER SCHEMA
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-});
-
-userSchema.plugin(passportLocalMongoose);
-
-const User = mongoose.model('User', userSchema)
 
 passport.use(User.createStrategy());
 
@@ -155,8 +72,6 @@ app.get('/post/:postID', (req, res) => {
 });
 
 
-
-
 // PORTFOLIO GETs & PAGES
 
 
@@ -194,8 +109,6 @@ app.get("/blog", (req,res) => {
     res.status(500).send(error);
   });
 })
-
-
 
 
 // ADMIN PAGE ADDTIONALY FUNCTIONALITY
@@ -242,30 +155,6 @@ app.get("/logout", (req, res) => {
   });
   res.redirect('/');
 });
-
-
-
-//   app.post("/contact", (req, res) => {
-//     const { name, email, subject, message } = req.body;
-  
-//     const mailOptions = {
-//       from: email,
-//       to: process.env.GMAIL_USER, // Replace with your email
-//       subject: subject,
-//       text: message
-//     };
-
-//   transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//       console.log(error);
-//       res.status(500).send('An error occurred');
-//     } else {
-//       console.log(`Email sent: ${info.response}`);
-//       res.status(200).send('Email sent successfully');
-//     }
-//   });
-// });
-
 
 
 
@@ -402,11 +291,6 @@ app.post("/delete/flashcard", async (req, res) => {
 
   res.redirect("/delete"); // Redirect to the appropriate URL after deletion
 });
-
-
-
-
-
 
 
 

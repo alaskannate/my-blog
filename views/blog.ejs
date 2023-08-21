@@ -1,33 +1,48 @@
 <%- include ('partials/portfolio-header') -%>
 
-<div id="blog" class="content-section">
-        <div class="jumbotron">
-            <h1 class="display-4"> Contact Me</h1>
-            <p class="lead">
-                My background is in art. Easily the most important insight gained from
-                that period of my life was nothing helps improvement like an candor and critics from peers. <br>
-                So with that being said, please provide any words of wisdom via my email below.
-            </p>
+
+<main id="blog" class="container">
+
+    <div id="heading-box" class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="col-lg-6 px-0">
+          <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+          <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+          <p class="lead mb-0"><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></p>
         </div>
+    </div>
+
+ <!-- <div class="jumbotron">
+     <h1 class="display-4"></h1>
+     <p class="lead">
+         My background is in art. Easily the most important insight gained from
+         that period of my life was nothing helps improvement like an candor and critics from peers. <br>
+         So with that being said, please provide any words of wisdom via my email below.
+     </p>
+ </div> -->
 
 
-        <div class="container-posts">
-            <% newPost.forEach(function(post){ %>
-            <div class="post card">
-                <h3><%= post.date %> </h3>
-                <h4><%= post.title %> </h4>
-                <p><%= post.body.substring(0,100) + " ..." %>
-                    <a href="post/<%= post._id %>">Read More</a>
-                </p>
+        <div class="blog-body">
 
+            <div class="blog-content">
+                <% newPost.forEach(function(post){ %>
+                    <div class="post-card">
+                        <h3><%= post.date %> </h3>
+                        <h4><%= post.title %> </h4>
+                        <p><%= post.body.substring(0,100) + " ..." %>
+                            <a href="post/<%= post._id %>">Read More</a>
+                        </p>
+                    </div>
+                    <% }) %>
+
+                    <div class="side-bar">
+
+                    </div>
             </div>
-            <% }) %>
+
+
+
         </div>
-
-
-</div>
-
-
+</main>
 
 
 <%- include ('partials/footer') -%>
