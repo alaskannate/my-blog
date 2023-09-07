@@ -90,7 +90,7 @@ app.get("/flashcards", (req, res) => {
     });
 });
 
-app.get("/crypto", (req, res) => {
+app.get("views/portfolio/crypto", (req, res) => {
   res.render('crypto')
 })
 
